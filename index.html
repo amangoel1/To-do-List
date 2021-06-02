@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>To-do List</title>
+</head>
+<body>
+	<div style="width: 100%; background-color: orangered; text-align: center;"><h2>This is what you came for</h2></div>
+	<div style="background-color: grey; float: left; width: 50%;">
+		<h3>Add all you can remember...</h3>
+		<table>
+<form action="">
+	<tr>
+		<td>
+	<label>Enter the task</label>
+</td></tr>
+<tr><td>
+	<input type="text" id="task"></td></tr>
+	<tr><td>
+	<input type="button" value="Add to list" onclick="addToList()"></td></tr>
+</form>
+</table>
+</div>
+<div style="float: right; background-color: green; width:50%;">
+<ul id="taskList"><h3>Just do it</h3></ul>
+</div>
+<script type="text/javascript" >
+	let taskList=[];
+	let list=document.getElementById("taskList");
+	function addToList() {
+		var task= document.getElementById("task").value;
+		taskList.push(task);
+		console.log(taskList);
+		//taskList.forEach((item) => {
+		let li = document.createElement("li");
+		li.innerText= task;
+		list.appendChild(li);
+	//})
+	}
+	
+</script>
+</body>
+</html>
