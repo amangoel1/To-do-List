@@ -4,40 +4,121 @@
 	<meta charset="utf-8">
 	<title>To-do List</title>
 </head>
-<body>
-	<div style="width: 100%; background-color: orangered; text-align: center;"><h2>This is what you came for</h2></div>
-	<div style="background-color: grey; float: left; width: 50%;">
+<body style="background-color:black;">
+	<div style="width: 100%; background-color: olive; text-align: center; background-blend-mode: darken;"><h2>This is what you came for</h2></div>
+	<div style="background-color: seagreen; float: left; width: 50%; height: 100%;">
 		<h3>Add all you can remember...</h3>
 		<table>
-<form action="">
-	<tr>
-		<td>
+<form action="" id="to-do">
+<tr><td>
 	<label>Enter the task</label>
 </td></tr>
+
 <tr><td>
-	<input type="text" id="task"></td></tr>
-	<tr><td>
-	<input type="button" value="Add to list" onclick="addToList()"></td></tr>
+	<input type="text" id="task">
+</td></tr>
+
+<tr><td>
+	<input type="button" id="addTask" value="Add to list" onclick="addToList()">
+</td></tr>
 </form>
 </table>
 </div>
-<div style="float: right; background-color: green; width:50%;">
+
+<div style="float: right; background-color: darkcyan; width:50%; height: 100%">
+	<div id="uldiv">
 <ul id="taskList"><h3>Just do it</h3></ul>
 </div>
-<script type="text/javascript" >
+<!-- <button value="Edit" onclick="editTaskList()"></button>
+ -->
+<span id="delete-edit"style="background-color: green;"></span>
+<!--<button value="">hello</button>-->
+</div>
+
+<script type="text/javascript">
+	var enter= document.getElementById("task");
+	enter.addEventListener("keypress", function(event){
+		if(event.keyCode === 13){
+			event.preventDefault();
+			document.getElementById("addTask").click();
+		}
+	});
 	let taskList=[];
+	var flag=0;
+	var i=0;
 	let list=document.getElementById("taskList");
+	let bttns=document.getElementById("delete-edit");
 	function addToList() {
+
 		var task= document.getElementById("task").value;
 		taskList.push(task);
 		console.log(taskList);
 		//taskList.forEach((item) => {
 		let li = document.createElement("li");
-		li.innerText= task;
+		li.setAttribute("tabIndex","1");
+		li.setAttribute("focus","outline:solid 1px black");
+		li.innerText= taskList[i++];
 		list.appendChild(li);
+		if(flag==0){
+
+			let btn1 = document.createElement("input");
+		btn1.setAttribute("type","submit");
+		btn1.setAttribute("value","delete");
+		btn1.setAttribute("onclick","deleteTask()");
+		let btn2 = document.createElement("input");
+		btn2.setAttribute("type","submit");
+		btn2.setAttribute("value","edit");
+		btn2.setAttribute("onclick","editTask()");
+		bttns.appendChild(btn1);
+		bttns.appendChild(btn2);
+
+		}
+		flag=1;
+		document.getElementById("to-do").reset();
 	//})
 	}
+	//var lst=document.getElementById("taskList");
+	var target;
+	var i;
+	list.addEventListener('click', function(e) {    
+	 //e = e || window.event;  
+	  target = e.target,
+     text =  target.innerText; console.log(target);});
 	
+	
+	function deleteTask(){
+		for(i=0; i<taskList.length; i++)
+		{
+			if(taskList[i]==target.innerText){
+				taskList.splice(i, 1);
+				break;
+			}
+			
+		}
+
+
+		
+		console.log(taskList);
+		// var uldiv=document.getElementById("uldiv");
+		// var list2=document.createElement("ul");
+
+		// for(var i=0; i<taskList.length;i++)
+		// {
+		// let li = document.createElement("li");
+		// li.innerText= taskList[i];
+		//list2.appendChild(li);
+		
+		//}
+		//console.log(list2);
+		//list.innerHTML=list2.innerHTML;
+		//list.appendChild(list2);
+//console.log(uldiv);
+target.remove();
+}
+	function editTaskList(){
+
+	}
+
 </script>
 </body>
 </html>
