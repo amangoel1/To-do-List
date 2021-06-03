@@ -101,6 +101,12 @@
 	
 	// delete button functionality
 	function deleteTask(){
+		if(target==null)
+		{
+			alert('please select a task');
+		}
+		else
+		{
 		for(i=0; i<taskList.length; i++)
 		{
 			if(taskList[i]==target.innerText){
@@ -115,8 +121,14 @@
 		console.log(taskList);
 		
 		target.remove();
+	}
 }
 	function editTask(){
+		if(target==null)
+		{
+			alert('please select a task');
+		}
+		else{
 		var editedTask = prompt("Enter the task",target.innerText);
 		for(i=0; i<taskList.length; i++)
 		{
@@ -137,6 +149,7 @@
 		//console.log(oldVal);
 		oldVal.replaceChild(newVal,oldVal.childNodes[++i]);
 		//console.log(i);
+	}
 
 
 	}
