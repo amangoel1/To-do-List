@@ -49,7 +49,7 @@
 
 	let taskList=[];
 	var flag=0;
-	var i=0;
+	var start=0;
 	let list=document.getElementById("taskList");
 	let bttns=document.getElementById("delete-edit");
 
@@ -63,10 +63,9 @@
 
 		let li = document.createElement("li"); // to create a list containing all the entered items
 		//setting attributes of newly ctreated list item
-		//li.setAttribute("width","20px"); 
-		//li.setAttribute("Id","listitem");
 		//copying the entered data to the <li> tag
-		li.innerText= taskList[i++];
+		console.log(start);
+		li.innerText= taskList[start++];
 		//finally display the <li> inside <ul> 
 		list.appendChild(li);
 		// following code uses flag variable 
@@ -96,35 +95,45 @@
 	//to select the clicked item from the list
 	list.addEventListener('click', function(e) {    
 	 //e = e || window.event;  
-	  target = e.target|| e.srcElement,
+	  target = e.target,
      text =  target.innerText; console.log(target);
-     e.srcElement.style.backgroundColor="white"; e.srcElement.style.border="10px";
+    // e.srcElement.style.backgroundColor="white"; e.srcElement.style.border="10px";
  		});
 	
 	// delete button functionality
 	function deleteTask(){
+		//console.log(target.tagName);
+
 		if(target==null)
 		{
 			alert('please select a task');
 		}
+		else if(target.tagName=="UL"){
+			alert("please select a single value");
+			target = null;
+
+		}
 		else
 		{
-		for(i=0; i<taskList.length; i++)
-		{
-			if(taskList[i]==target.innerText){
-				taskList.splice(i, 1);
-				break;
-			}
+				for(i=0; i<taskList.length; i++)
+				{
+					if(taskList[i]==target.innerText){
+						taskList.splice(i, 1);
+						console.log(taskList);
+						//i=taskList.length;
+						break;
+				}
 			
 		}
 
 
 		
-		console.log(taskList);
+			console.log(taskList);
 		
-		target.remove();
-		target=null;
-	}
+			target.remove();
+			start--;
+			target=null;
+		}
 }
 	function editTask(){
 		if(target==null)
@@ -150,7 +159,7 @@
 		//document.getElementById("taskList").reset();
 		var oldVal = document.getElementById("taskList");
 		//console.log(oldVal);
-		oldVal.replaceChild(newVal,oldVal.childNodes[++i]);
+		oldVal.replaceChild(newVal,oldVal.childNodes[i]);
 		//console.log(i);
 	}
 	target=null;
