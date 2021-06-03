@@ -121,6 +121,7 @@
 		console.log(taskList);
 		
 		target.remove();
+		target=null;
 	}
 }
 	function editTask(){
@@ -150,6 +151,7 @@
 		oldVal.replaceChild(newVal,oldVal.childNodes[++i]);
 		//console.log(i);
 	}
+	target=null;
 
 
 	}
