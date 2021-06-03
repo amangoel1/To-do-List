@@ -36,6 +36,7 @@
 </div>
 
 <script type="text/javascript">
+	//to enable the enter button
 	var enter= document.getElementById("task");
 	enter.addEventListener("keypress", function(event){
 		if(event.keyCode === 13){
@@ -43,22 +44,32 @@
 			document.getElementById("addTask").click();
 		}
 	});
+
 	let taskList=[];
 	var flag=0;
 	var i=0;
 	let list=document.getElementById("taskList");
 	let bttns=document.getElementById("delete-edit");
+
+	// To add the entered task into list
 	function addToList() {
 
-		var task= document.getElementById("task").value;
-		taskList.push(task);
+		var task= document.getElementById("task").value; // fetching the value from text field
+		taskList.push(task); // copying the entered value in an array
 		console.log(taskList);
-		//taskList.forEach((item) => {
-		let li = document.createElement("li");
-		li.setAttribute("tabIndex","1");
-		li.setAttribute("focus","outline:solid 1px black");
+
+
+		let li = document.createElement("li"); // to create a list containing all the entered items
+		//setting attributes of newly ctreated list item
+		//li.setAttribute("width","20px"); 
+		//li.setAttribute("Id","listitem");
+		//copying the entered data to the <li> tag
 		li.innerText= taskList[i++];
+		//finally display the <li> inside <ul> 
 		list.appendChild(li);
+		// following code uses flag variable 
+		//so that the edit and delete buttons will not get created everytime user adds an item
+		//delete and edit buttons will get created only once
 		if(flag==0){
 
 			let btn1 = document.createElement("input");
@@ -75,17 +86,20 @@
 		}
 		flag=1;
 		document.getElementById("to-do").reset();
-	//})
 	}
-	//var lst=document.getElementById("taskList");
+
+
 	var target;
 	var i;
+	//to select the clicked item from the list
 	list.addEventListener('click', function(e) {    
 	 //e = e || window.event;  
-	  target = e.target,
-     text =  target.innerText; console.log(target);});
+	  target = e.target|| e.srcElement,
+     text =  target.innerText; console.log(target);
+     e.srcElement.style.backgroundColor="white"; e.srcElement.style.border="10px";
+ 		});
 	
-	
+	// delete button functionality
 	function deleteTask(){
 		for(i=0; i<taskList.length; i++)
 		{
@@ -99,23 +113,31 @@
 
 		
 		console.log(taskList);
-		// var uldiv=document.getElementById("uldiv");
-		// var list2=document.createElement("ul");
-
-		// for(var i=0; i<taskList.length;i++)
-		// {
-		// let li = document.createElement("li");
-		// li.innerText= taskList[i];
-		//list2.appendChild(li);
 		
-		//}
-		//console.log(list2);
-		//list.innerHTML=list2.innerHTML;
-		//list.appendChild(list2);
-//console.log(uldiv);
-target.remove();
+		target.remove();
 }
-	function editTaskList(){
+	function editTask(){
+		var editedTask = prompt("Enter the task",target.innerText);
+		for(i=0; i<taskList.length; i++)
+		{
+			if(taskList[i]==target.innerText){
+				taskList[i]=editedTask;
+				break;
+			}
+			
+		}
+		var newVal= document.createElement("li");
+		var node=document.createTextNode(editedTask);
+		newVal.appendChild(node);
+		//console.log(newVal);
+
+		console.log(taskList);
+		//document.getElementById("taskList").reset();
+		var oldVal = document.getElementById("taskList");
+		//console.log(oldVal);
+		oldVal.replaceChild(newVal,oldVal.childNodes[++i]);
+		//console.log(i);
+
 
 	}
 
